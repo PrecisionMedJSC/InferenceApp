@@ -1,0 +1,30 @@
+<mat-card class="mat-elevation-z6" style="border-radius: 10px;">
+    <mat-toolbar color="primary" style="border-radius: 10px 10px 0 0; margin-bottom: 3%;">Input Fields</mat-toolbar>
+
+    <div style="grid-template-columns: repeat(auto-fit, minmax(400px, 0fr)); width: 100%;">
+        <mat-card-content style="text-align: center;">
+        </mat-card-content>
+        <mat-card-content>
+            <div class="signin-form">
+                <div class="signin-wrapper" fxLayout="row" fxLayoutAlign="center center">
+                    <form class="form" [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)">
+
+                        <mat-form-field *ngFor="let f of fields" appearance='fill'>
+                            <mat-label>{{upperNameOfFields(f.name)}}</mat-label>
+                            <input type="number" matInput [placeholder]="f.name" [formControlName]="f.name"
+                                [errorStateMatcher]="matcher">
+                        </mat-form-field>
+
+
+                        <div style="text-align: center;">
+                            <button mat-raised-button color="primary" type="submit" class="button"
+                                [disabled]="formGroup.invalid">Submit</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </mat-card-content>
+    </div>
+
+</mat-card>

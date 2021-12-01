@@ -1,0 +1,23 @@
+mat-card{
+    max-width: 70%;
+    max-height: 100%;
+    width: 50vw;
+    min-width: 30vw;
+    margin: 0 auto;
+    top: 20%;
+    overflow: hidden;
+  }
+  
+  .full-width {
+    width: 100%;
+    padding: 5px 0px 25px 2px;
+    color: #219ebc;
+  }
+  
+  .login-wrapper{
+    justify-content: center;
+  }
+
+  mat-form-field {
+    padding-left: 8px;
+  }
