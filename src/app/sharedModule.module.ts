@@ -15,6 +15,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ErrorStateMatcher, MatNativeDateModule, ShowOnDirtyErrorStateMatcher } from '@angular/material/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ChartModule } from 'angular-highcharts';
+
 @NgModule({
     imports: [
         MatToolbarModule,
@@ -33,7 +35,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         MatDatepickerModule,
         MatNativeDateModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        ChartModule
     ],
     exports: [
         MatToolbarModule,
@@ -52,7 +55,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         MatDatepickerModule,
         MatNativeDateModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        ChartModule
     ],
     providers: [
         { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }

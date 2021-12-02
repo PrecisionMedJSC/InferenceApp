@@ -1,5 +1,5 @@
 import { Component, createPlatform, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -22,51 +22,28 @@ export class FormComponent implements OnInit {
   userProfile = null;
   post: any = '';
   matcher = new MyErrorStateMatcher();
-  fields = [
-    { name: 'pregnancies' },
-    { name: 'glucose' },
-    { name: 'bloodPressure' },
-    { name: 'skinThickness' },
-    { name: 'insulin' },
-    { name: 'bmi' },
-    { name: 'diabetesPedigreeFunction' },
-    { name: 'age' }
-  ];
-  formGroup = new FormGroup({
-    pregnancies: new FormControl('', [
-      Validators.required,
-    ]),
-    glucose: new FormControl('', [
-      Validators.required,
-    ]),
-    bloodPressure: new FormControl('', [
-      Validators.required,
-    ]),
-    skinThickness: new FormControl('', [
-      Validators.required,
-    ]),
-    insulin: new FormControl('', [
-      Validators.required,
-    ]),
-    bmi: new FormControl('', [
-      Validators.required,
-    ]),
-    diabetesPedigreeFunction: new FormControl('', [
-      Validators.required,
-    ]),
-    age: new FormControl('', [
-      Validators.required,
-    ]),
+  submitted = false;
+  public dynamicForm!: FormGroup;
 
-  });
-  get pregnancies() { return this.formGroup.get('pregnancies'); }
-  get glucose() { return this.formGroup.get('glucose'); }
-  get bloodPressure() { return this.formGroup.get('bloodPressure'); }
-  get skinThickness() { return this.formGroup.get('skinThickness'); }
-  get insulin() { return this.formGroup.get('insulin'); }
-  get bmi() { return this.formGroup.get('bmi'); }
-  get diabetesPedigreeFunction() { return this.formGroup.get('diabetesPedigreeFunction'); }
-  get age() { return this.formGroup.get('age'); }
+  get f() { return this.dynamicForm.controls; }
+  get t() { return this.f.fields as FormArray; }
+  get fieldFormGroups() { return this.t.controls as FormGroup[]; }
+
+  onChangeFields(e: any) {
+    const numberOfFields = e || 0;
+    if (this.t.length < numberOfFields) {
+      for (let i = this.t.length; i < numberOfFields; i++) {
+        this.t.push(this.formBuilder.group({
+          name: ['', Validators.required],
+          value: ['', [Validators.required]]
+        }));
+      }
+    } else {
+      for (let i = this.t.length; i >= numberOfFields; i--) {
+        this.t.removeAt(i);
+      }
+    }
+  }
   constructor(
     public router: Router,
     public snackBar: MatSnackBar,
@@ -75,15 +52,31 @@ export class FormComponent implements OnInit {
 
 
   ngOnInit(): void {
-
+    this.dynamicForm = this.formBuilder.group({
+      numberOfFields: ['', Validators.required],
+      fields: new FormArray([])
+    });
   }
 
-  onSubmit(post: any) {
-    this.post = post;
-    console.log(post)
+  onSubmit() {
+    this.submitted = true;
+    if (this.dynamicForm?.invalid) {
+      return;
+    }
+    console.log(this.dynamicForm?.value);
   }
   upperNameOfFields(name: string) {
     return name.toUpperCase();
+  }
+  onReset() {
+    this.submitted = false;
+    this.dynamicForm?.reset();
+    this.t.clear();
+  }
+
+  onClear() {
+    this.submitted = false;
+    this.t.reset();
   }
 }
 

@@ -1,29 +1,63 @@
-<mat-card class="mat-elevation-z6" style="border-radius: 10px;">
+<mat-card class="mat-elevation-z6" style="border-radius: 10px; ">
     <mat-toolbar color="primary" style="border-radius: 10px 10px 0 0; margin-bottom: 3%;">Input Fields</mat-toolbar>
 
     <div style="grid-template-columns: repeat(auto-fit, minmax(400px, 0fr)); width: 100%;">
         <mat-card-content style="text-align: center;">
-        </mat-card-content>
-        <mat-card-content>
-            <div class="signin-form">
-                <div class="signin-wrapper" fxLayout="row" fxLayoutAlign="center center">
-                    <form class="form" [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)">
+            <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
+                <div class="card m-3">
+                    <div class="card-body border-bottom">
+                        <div class="form-row">
+                            <div class="form-group">
 
-                        <mat-form-field *ngFor="let f of fields" appearance='fill'>
-                            <mat-label>{{upperNameOfFields(f.name)}}</mat-label>
-                            <input type="number" matInput [placeholder]="f.name" [formControlName]="f.name"
-                                [errorStateMatcher]="matcher">
-                        </mat-form-field>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Number of Fields</mat-label>
+                                    <mat-select formControlName="numberOfFields" class="form-control"
+                                        (valueChange)="onChangeFields($event)"
+                                        [ngClass]="{ 'is-invalid': submitted && f.numberOfFields.errors }">
+                                        <mat-option value="0">Please select</mat-option>
+                                        <mat-option *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]" [value]="i">{{i}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
 
-
-                        <div style="text-align: center;">
-                            <button mat-raised-button color="primary" type="submit" class="button"
-                                [disabled]="formGroup.invalid">Submit</button>
+                                <div *ngIf="submitted && f.numberOfFields.errors" class="invalid-feedback">
+                                    <p *ngIf="f.numberOfFields.errors.required">Number of fields is required</p>
+                                </div>
+                            </div>
                         </div>
-
-                    </form>
+                    </div>
+                    <div *ngFor="let field of fieldFormGroups; let i = index" class="list-group list-group-flush">
+                        <div class="list-group-item">
+                            <h5 class="card-title">Fields {{i + 1}}</h5>
+                            <div [formGroup]="field" class="form-row">
+                                <mat-form-field appearance='fill'>
+                                    <mat-label>Name</mat-label>
+                                    <input type="text" matInput formControlName="name" class="form-control"
+                                        [ngClass]="{ 'is-invalid': submitted && field.controls.name.errors } ">
+                                    <div *ngIf="submitted && field.controls.name.errors" class="invalid-feedback">
+                                        <p *ngIf="field.controls.name.errors.required">Name is required</p>
+                                    </div>
+                                </mat-form-field>
+                                <mat-form-field appearance='fill'>
+                                    <mat-label>Value</mat-label>
+                                    <input type="number" matInput formControlName="value" class="form-control"
+                                        [ngClass]="{ 'is-invalid': submitted && field.controls.value.errors }">
+                                    <div *ngIf="submitted && field.controls.value.errors" class="invalid-feedback">
+                                        <p *ngIf="field.controls.value.errors.required">Value is required</p>
+                                    </div>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center border-top-0">
+                        <button mat-raised-button color="primary">Submit</button>
+                        <button style="margin-left: 10px;" mat-raised-button color="accent" type="reset"
+                            (click)="onReset()">Reset</button>
+                        <button style="margin-left: 10px;" mat-raised-button color="danger"
+                            (click)="onClear()">Clear</button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </mat-card-content>
     </div>
 

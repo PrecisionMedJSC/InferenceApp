@@ -5,11 +5,13 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { SharedModule } from 'src/app/sharedModule.module';
 import { FormComponent } from '../components/form/form.component';
+import { ChartComponent } from '../components/chart/chart.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    FormComponent
+    FormComponent,
+    ChartComponent
   ],
   imports: [
     CommonModule,
