@@ -23,6 +23,18 @@
                                 <div *ngIf="submitted && f.numberOfFields.errors" class="invalid-feedback">
                                     <p *ngIf="f.numberOfFields.errors.required">Number of fields is required</p>
                                 </div>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Select Algo</mat-label>
+                                    <mat-select formControlName="algoSelected" class="form-control"
+                                        (valueChange)="onChangeAlgo($event)" [ngClass]="{ 'is-invalid': submitted}">
+                                        <mat-option value="0">Please select</mat-option>
+
+                                    </mat-select>
+                                </mat-form-field>
+
+                                <div *ngIf="submitted && f.algoSelected.errors" class="invalid-feedback">
+                                    <p *ngIf="f.algoSelected.errors.required">Algo's name is required</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -44,6 +56,14 @@
                                         [ngClass]="{ 'is-invalid': submitted && field.controls.value.errors }">
                                     <div *ngIf="submitted && field.controls.value.errors" class="invalid-feedback">
                                         <p *ngIf="field.controls.value.errors.required">Value is required</p>
+                                    </div>
+                                </mat-form-field>
+                                <mat-form-field appearance='fill'>
+                                    <mat-label>Model Name</mat-label>
+                                    <input type="text" matInput formControlName="modelName" class="form-control"
+                                        [ngClass]="{ 'is-invalid': submitted && field.controls.modelName.errors }">
+                                    <div *ngIf="submitted && field.controls.modelName.errors" class="invalid-feedback">
+                                        <p *ngIf="field.controls.modelName.errors.required">Model Name is required</p>
                                     </div>
                                 </mat-form-field>
                             </div>

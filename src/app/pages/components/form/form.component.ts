@@ -35,7 +35,8 @@ export class FormComponent implements OnInit {
       for (let i = this.t.length; i < numberOfFields; i++) {
         this.t.push(this.formBuilder.group({
           name: ['', Validators.required],
-          value: ['', [Validators.required]]
+          value: ['', [Validators.required]],
+          modelName: ['', Validators.required]
         }));
       }
     } else {
@@ -54,7 +55,8 @@ export class FormComponent implements OnInit {
   ngOnInit(): void {
     this.dynamicForm = this.formBuilder.group({
       numberOfFields: ['', Validators.required],
-      fields: new FormArray([])
+      fields: new FormArray([]),
+      algoSelected: ['', Validators.required]
     });
   }
 
@@ -77,6 +79,10 @@ export class FormComponent implements OnInit {
   onClear() {
     this.submitted = false;
     this.t.reset();
+  }
+
+  onChangeAlgo(e: any) {
+    console.log(e);
   }
 }
 
