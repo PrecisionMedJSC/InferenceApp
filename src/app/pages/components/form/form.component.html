@@ -1,84 +1,115 @@
-<mat-card class="mat-elevation-z6" style="border-radius: 10px; ">
-    <mat-toolbar color="primary" style="border-radius: 10px 10px 0 0; margin-bottom: 3%;">Input Fields</mat-toolbar>
-
-    <div style="grid-template-columns: repeat(auto-fit, minmax(400px, 0fr)); width: 100%;">
-        <mat-card-content style="text-align: center;">
+<mat-card class="mat-elevation-z6" style="border-radius: 0 10px 10px 0; padding: 0 5px 5px 0">
+    <mat-card-header>
+        <mat-card-title style="margin:10px;">
+            <span>Input data</span>
+        </mat-card-title>
+    </mat-card-header>
+    <div style=" grid-template-columns: repeat(auto-fit, minmax(400px, 0fr)); width: 100%; ">
+        <mat-card-content style=" text-align: center">
             <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
                 <div class="card m-3">
                     <div class="card-body border-bottom">
                         <div class="form-row">
                             <div class="form-group">
-
-                                <mat-form-field appearance="fill">
+                                <mat-form-field appearance="fill" style="width: 100%;">
                                     <mat-label>Number of Fields</mat-label>
                                     <mat-select formControlName="numberOfFields" class="form-control"
-                                        (valueChange)="onChangeFields($event)"
-                                        [ngClass]="{ 'is-invalid': submitted && f.numberOfFields.errors }">
+                                        (valueChange)="onChangeFields($event)" [ngClass]="{
+                      'is-invalid': submitted && f.numberOfFields.errors
+                    }">
                                         <mat-option value="0">Please select</mat-option>
-                                        <mat-option *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]" [value]="i">{{i}}
+                                        <mat-option *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" [value]="i">{{
+                                            i
+                                            }}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
-
+                                <br>
                                 <div *ngIf="submitted && f.numberOfFields.errors" class="invalid-feedback">
-                                    <p *ngIf="f.numberOfFields.errors.required">Number of fields is required</p>
+                                    <p *ngIf="f.numberOfFields.errors.required">
+                                        Number of fields is required
+                                    </p>
                                 </div>
-                                <mat-form-field appearance="fill">
-                                    <mat-label>Select Algo</mat-label>
+                                <mat-form-field appearance="fill" style="width: 100%;">
+                                    <mat-label>Model</mat-label>
                                     <mat-select formControlName="algoSelected" class="form-control"
-                                        (valueChange)="onChangeAlgo($event)" [ngClass]="{ 'is-invalid': submitted}">
+                                        (valueChange)="onChangeAlgo($event)" [ngClass]="{ 'is-invalid': submitted }">
                                         <mat-option value="0">Please select</mat-option>
-
                                     </mat-select>
                                 </mat-form-field>
 
                                 <div *ngIf="submitted && f.algoSelected.errors" class="invalid-feedback">
-                                    <p *ngIf="f.algoSelected.errors.required">Algo's name is required</p>
+                                    <p *ngIf="f.algoSelected.errors.required">
+                                        Algo's name is required
+                                    </p>
+                                </div>
+                                <mat-form-field appearance="fill" style="width: 100%;">
+                                    <mat-label>Algorithms</mat-label>
+                                    <mat-select formControlName="algoSelected" class="form-control"
+                                        (valueChange)="onChangeAlgo($event)" [ngClass]="{ 'is-invalid': submitted }">
+                                        <mat-option value="0">Please select</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+
+                                <div *ngIf="submitted && f.algoSelected.errors" class="invalid-feedback">
+                                    <p *ngIf="f.algoSelected.errors.required">
+                                        Algo's name is required
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div *ngFor="let field of fieldFormGroups; let i = index" class="list-group list-group-flush">
                         <div class="list-group-item">
-                            <h5 class="card-title">Fields {{i + 1}}</h5>
+
                             <div [formGroup]="field" class="form-row">
-                                <mat-form-field appearance='fill'>
+                                <label class="card-title">Fields {{ i + 1 }}</label>
+                                <mat-form-field>
                                     <mat-label>Name</mat-label>
-                                    <input type="text" matInput formControlName="name" class="form-control"
-                                        [ngClass]="{ 'is-invalid': submitted && field.controls.name.errors } ">
+                                    <input type="text" matInput formControlName="name" class="form-control" [ngClass]="{
+                      'is-invalid': submitted && field.controls.name.errors
+                    }" autocomplete="off" />
                                     <div *ngIf="submitted && field.controls.name.errors" class="invalid-feedback">
-                                        <p *ngIf="field.controls.name.errors.required">Name is required</p>
+                                        <p *ngIf="field.controls.name.errors.required">
+                                            Name is required
+                                        </p>
                                     </div>
                                 </mat-form-field>
-                                <mat-form-field appearance='fill'>
+                                <mat-form-field>
                                     <mat-label>Value</mat-label>
                                     <input type="number" matInput formControlName="value" class="form-control"
-                                        [ngClass]="{ 'is-invalid': submitted && field.controls.value.errors }">
+                                        [ngClass]="{
+                      'is-invalid': submitted && field.controls.value.errors
+                    }" autocomplete="off" />
                                     <div *ngIf="submitted && field.controls.value.errors" class="invalid-feedback">
-                                        <p *ngIf="field.controls.value.errors.required">Value is required</p>
+                                        <p *ngIf="field.controls.value.errors.required">
+                                            Value is required
+                                        </p>
                                     </div>
                                 </mat-form-field>
-                                <mat-form-field appearance='fill'>
-                                    <mat-label>Model Name</mat-label>
-                                    <input type="text" matInput formControlName="modelName" class="form-control"
-                                        [ngClass]="{ 'is-invalid': submitted && field.controls.modelName.errors }">
-                                    <div *ngIf="submitted && field.controls.modelName.errors" class="invalid-feedback">
-                                        <p *ngIf="field.controls.modelName.errors.required">Model Name is required</p>
-                                    </div>
+                                <mat-form-field>
+                                    <mat-label>Unit</mat-label>
+                                    <input type="text" matInput formControlName="unit" class="form-control" [ngClass]="{
+                      'is-invalid': submitted && field.controls.value.errors
+                    }" autocomplete="off" />
+
                                 </mat-form-field>
+
                             </div>
                         </div>
                     </div>
                     <div class="card-footer text-center border-top-0">
                         <button mat-raised-button color="primary">Submit</button>
-                        <button style="margin-left: 10px;" mat-raised-button color="accent" type="reset"
-                            (click)="onReset()">Reset</button>
-                        <button style="margin-left: 10px;" mat-raised-button color="danger"
-                            (click)="onClear()">Clear</button>
+                        <button style="margin-left: 10px" mat-raised-button color="accent" type="reset"
+                            (click)="onReset()">
+                            Reset
+                        </button>
+                        <button style="margin-left: 10px" mat-raised-button color="danger" (click)="onClear()">
+                            Clear
+                        </button>
                     </div>
                 </div>
             </form>
         </mat-card-content>
     </div>
-
 </mat-card>

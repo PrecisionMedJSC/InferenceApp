@@ -13,6 +13,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import {MatSidenavModule} from '@angular/material/sidenav';
 import { ErrorStateMatcher, MatNativeDateModule, ShowOnDirtyErrorStateMatcher } from '@angular/material/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChartModule } from 'angular-highcharts';
@@ -35,6 +36,7 @@ import { ChartModule } from 'angular-highcharts';
         MatDatepickerModule,
         MatNativeDateModule,
         FormsModule,
+        MatSidenavModule,
         ReactiveFormsModule,
         ChartModule
     ],
@@ -54,6 +56,7 @@ import { ChartModule } from 'angular-highcharts';
         MatMenuModule,
         MatDatepickerModule,
         MatNativeDateModule,
+        MatSidenavModule,
         FormsModule,
         ReactiveFormsModule,
         ChartModule
