@@ -13,10 +13,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { ErrorStateMatcher, MatNativeDateModule, ShowOnDirtyErrorStateMatcher } from '@angular/material/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ChartModule } from 'angular-highcharts';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { FusionChartsModule } from 'angular-fusioncharts';
 
 @NgModule({
     imports: [
@@ -38,7 +39,8 @@ import { ChartModule } from 'angular-highcharts';
         FormsModule,
         MatSidenavModule,
         ReactiveFormsModule,
-        ChartModule
+        HttpClientModule,
+        FusionChartsModule
     ],
     exports: [
         MatToolbarModule,
@@ -59,7 +61,8 @@ import { ChartModule } from 'angular-highcharts';
         MatSidenavModule,
         FormsModule,
         ReactiveFormsModule,
-        ChartModule
+        HttpClientModule,
+        FusionChartsModule
     ],
     providers: [
         { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }
