@@ -33,6 +33,7 @@ export class FormComponent implements OnInit {
   algosSelected: Array<string> = [];
   fieldsName: Array<string> = [];
   unitsName: Array<string> = [];
+  fieldValues: Array<string> = [];
   specs: Array<any> = [];
   isNormed: boolean = true;
   get f() { return this.dynamicForm.controls; }
@@ -59,7 +60,7 @@ export class FormComponent implements OnInit {
     public router: Router,
     public snackBar: MatSnackBar,
     private formBuilder: FormBuilder,
-    private mlSerrvice: MlService,
+    private mlService: MlService,
     private chartService: ChartService
   ) { }
 
@@ -75,20 +76,14 @@ export class FormComponent implements OnInit {
 
   async onSubmit() {
     this.submitted = true;
-    if (this.dynamicForm?.invalid) {
-      return;
-    }
-    // console.log(this.getValueFromFields(this.dynamicForm.get('fields')?.value));
-    // console.log(this.isNormed);
-    // console.log(this.algosSelected);
-    // console.log(this.dynamicForm.get('modelSelected')?.value);
+   
     let result: Array<any> = [];
     console.log(this.algosSelected);
     this.algosSelected.map(async (value: any, index: number) => {
-      result.push(await this.mlSerrvice.inferenceInput(
+      result.push(await this.mlService.inferenceInput(
         this.dynamicForm.get('modelSelected')?.value,
         this.algosSelected[index],
-        this.getValueFromFields(this.dynamicForm.get('fields')?.value),
+        this.getValueFromFields(this.fieldValues),
         this.isNormed));
     })
     this.chartService.setChartData(result);
@@ -113,7 +108,7 @@ export class FormComponent implements OnInit {
     console.log(e);
   }
   async onChangeModel(e: string) {
-    let temp = (await this.mlSerrvice.getModels(e) as any);
+    let temp = (await this.mlService.getModels(e) as any);
     let algoName = temp['models'];
     this.specs = temp['spec']['features']
     algoName.forEach((element: string) => {
@@ -125,7 +120,8 @@ export class FormComponent implements OnInit {
 
     this.specs.forEach((element: any) => {
       this.fieldsName?.push(element['name']);
-      this.unitsName?.push(element['unit'])
+      this.unitsName?.push(element['unit']);
+      this.fieldValues.push('');
     });
     // console.log(this.algos);
     // console.log(this.specs);
@@ -138,7 +134,7 @@ export class FormComponent implements OnInit {
     let result = "";
     // console.log(input);
     for (let i = 0; i < input.length; i++) {
-      result += input[i]['value'] + ",";
+      result += input[i] + ",";
     }
     result = result.substring(0, result.length - 1);
     // console.log(result);

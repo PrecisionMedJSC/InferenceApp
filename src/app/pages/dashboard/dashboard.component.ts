@@ -20,6 +20,10 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  round(value: number) {
+    return Math.round(value * 100) / 100;
+  }
+
 
 
 }
