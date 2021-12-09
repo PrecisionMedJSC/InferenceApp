@@ -18,6 +18,11 @@ import { ErrorStateMatcher, MatNativeDateModule, ShowOnDirtyErrorStateMatcher } 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FusionChartsModule } from 'angular-fusioncharts';
+import * as FusionCharts from 'fusioncharts';
+import * as Charts from 'fusioncharts/fusioncharts.charts';
+import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
+FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme)
+import { NgxGaugeModule } from 'ngx-gauge';
 
 @NgModule({
     imports: [
@@ -40,7 +45,8 @@ import { FusionChartsModule } from 'angular-fusioncharts';
         MatSidenavModule,
         ReactiveFormsModule,
         HttpClientModule,
-        FusionChartsModule
+        FusionChartsModule,
+        NgxGaugeModule
     ],
     exports: [
         MatToolbarModule,
@@ -62,7 +68,8 @@ import { FusionChartsModule } from 'angular-fusioncharts';
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        FusionChartsModule
+        FusionChartsModule,
+        NgxGaugeModule
     ],
     providers: [
         { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }

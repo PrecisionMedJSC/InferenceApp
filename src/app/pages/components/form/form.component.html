@@ -21,20 +21,24 @@
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
+
                                 <br>
                                 <div *ngIf="submitted && f.numberOfFields.errors" class="invalid-feedback">
                                     <p *ngIf="f.numberOfFields.errors.required">
                                         Number of fields is required
                                     </p>
                                 </div>
-                                <mat-form-field appearance="fill" style="width: 100%;">
+                                <mat-form-field appearance="fill" style="float: left;">
                                     <mat-label>Model</mat-label>
                                     <mat-select formControlName="modelSelected" class="form-control"
                                         (valueChange)="onChangeModel($event)" [ngClass]="{ 'is-invalid': submitted }">
                                         <mat-option value="">Please select</mat-option>
                                         <mat-option *ngFor="let m of modelName" [value]="m">{{m}}</mat-option>
                                     </mat-select>
+
                                 </mat-form-field>
+                                <mat-checkbox class="example-margin" [(ngModel)]="isNormed"
+                                    [ngModelOptions]="{standalone: true}">Normed</mat-checkbox>
 
                                 <div *ngIf="submitted && f.modelSelected.errors" class="invalid-feedback">
                                     <p *ngIf="f.modelSelected.errors.required">
@@ -43,11 +47,15 @@
                                 </div>
                                 <mat-form-field appearance="fill" style="width: 100%;">
                                     <mat-label>Algorithms</mat-label>
-                                    <mat-select formControlName="algoSelected" class="form-control"
+                                    <!-- <mat-select formControlName="algoSelected" class="form-control"
                                         (valueChange)="onChangeAlgo($event)" [ngClass]="{ 'is-invalid': submitted }">
                                         <mat-option value="0">Please select</mat-option>
                                         <mat-option *ngFor="let algo of algos" [value]="algo">{{algo}}</mat-option>
+                                    </mat-select> -->
+                                    <mat-select formControlName="algoSelected" multiple [(value)]="algosSelected">
+                                        <mat-option *ngFor="let algo of algos" [value]="algo">{{algo}}</mat-option>
                                     </mat-select>
+
                                 </mat-form-field>
 
                                 <div *ngIf="submitted && f.algoSelected.errors" class="invalid-feedback">
@@ -65,14 +73,19 @@
                                 <label class="card-title">Fields {{ i + 1 }}</label>
                                 <mat-form-field>
                                     <mat-label>Name</mat-label>
-                                    <input type="text" matInput formControlName="name" class="form-control" [ngClass]="{
+                                    <!-- <input type="text" matInput formControlName="name" class="form-control" [ngClass]="{
                       'is-invalid': submitted && field.controls.name.errors
-                    }" autocomplete="off" />
-                                    <div *ngIf="submitted && field.controls.name.errors" class="invalid-feedback">
+                    }" autocomplete="off" /> -->
+                                    <mat-select formControlName="name" class="form-control"
+                                        [ngClass]="{ 'is-invalid': submitted && f.name.errors}">
+                                        <mat-option *ngFor="let f of fieldsName" [value]="f">{{f}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <!-- <div *ngIf="submitted && field.controls.name.errors" class="invalid-feedback">
                                         <p *ngIf="field.controls.name.errors.required">
                                             Name is required
                                         </p>
-                                    </div>
+                                    </div> -->
                                 </mat-form-field>
                                 <mat-form-field>
                                     <mat-label>Value</mat-label>
@@ -80,6 +93,7 @@
                                         [ngClass]="{
                       'is-invalid': submitted && field.controls.value.errors
                     }" autocomplete="off" />
+
                                     <div *ngIf="submitted && field.controls.value.errors" class="invalid-feedback">
                                         <p *ngIf="field.controls.value.errors.required">
                                             Value is required
@@ -88,10 +102,14 @@
                                 </mat-form-field>
                                 <mat-form-field>
                                     <mat-label>Unit</mat-label>
-                                    <input type="text" matInput formControlName="unit" class="form-control" [ngClass]="{
+                                    <!-- <input type="text" matInput formControlName="unit" class="form-control" [ngClass]="{
                       'is-invalid': submitted && field.controls.unit.errors
-                    }" autocomplete="off" />
-
+                    }" autocomplete="off" /> -->
+                                    <mat-select formControlName="unit" class="form-control"
+                                        [ngClass]="{ 'is-invalid': submitted && f.unit.errors}">
+                                        <mat-option *ngFor="let u of unitsName" [value]="u">{{u}}
+                                        </mat-option>
+                                    </mat-select>
                                 </mat-form-field>
 
                             </div>
