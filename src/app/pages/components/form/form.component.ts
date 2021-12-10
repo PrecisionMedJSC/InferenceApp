@@ -27,7 +27,8 @@ export class FormComponent implements OnInit {
   submitted = false;
   public dynamicForm!: FormGroup;
   public modelName = [
-    'model_15k_selected_fg',
+    'model_15k',
+    'model_15k_preg'
   ];
   algos: Array<string> = [];
   algosSelected: Array<string> = [];
@@ -102,6 +103,9 @@ export class FormComponent implements OnInit {
   onClear() {
     this.submitted = false;
     this.t.reset();
+    for(let i = 0; i < this.fieldValues.length; i++) {
+      this.fieldValues[i] = '';
+    }
   }
 
   async onChangeAlgo(e: string) {
@@ -111,12 +115,21 @@ export class FormComponent implements OnInit {
     let temp = (await this.mlService.getModels(e) as any);
     let algoName = temp['models'];
     this.specs = temp['spec']['features']
+    while (this.algos.length > 0) {
+      this.algos.pop();
+    }
     algoName.forEach((element: string) => {
       if (this.filterExtensionFile(element) != null) {
         // console.log(element);
         this.algos.push(element);
       }
     });
+
+    while(this.fieldValues.length > 0) {
+      this.fieldValues.pop();
+      this.fieldsName.pop();
+      this.unitsName.pop();
+    }
 
     this.specs.forEach((element: any) => {
       this.fieldsName?.push(element['name']);

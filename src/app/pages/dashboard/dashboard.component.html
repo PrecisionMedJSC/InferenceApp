@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-    <mat-toolbar-row>
+    <mat-toolbar-row style="z-index: 2;" class="mat-elevation-z8">
         <button mat-icon-button (click)="sidenav.toggle()">
             <mat-icon>menu</mat-icon>
         </button>
@@ -12,11 +12,12 @@
     <mat-drawer #sidenav mode="side" [(opened)]="opened">
         <app-form></app-form>
     </mat-drawer>
-    <mat-drawer-content *ngIf="value" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
-        <mat-card *ngFor="let i of value" style="margin: 20px; width: 300px;" class="mat-elevation-z6">
+    <mat-drawer-content *ngIf="value"
+        style="grid-template-columns: repeat(250px, minmax(250px, 400px)); display: grid;">
+        <mat-card *ngFor="let i of value" style="margin: 20px;" class="mat-elevation-z6">
             <mat-card-header>
-                <mat-card-title>
-                    <span>{{i['algorithm']}}</span>
+                <mat-card-title style="text-align: center;">
+                    <span style="text-align: center;">{{i['algorithm']}}</span>
                 </mat-card-title>
             </mat-card-header>
             <mat-card-content>

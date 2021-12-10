@@ -6,7 +6,8 @@ import { Injectable } from '@angular/core';
 })
 export class MlService {
 
-  env = 'http://127.0.0.1:8000';
+  // env = 'https://ep.diabetes.precisionmed.dev';
+  env = "http://127.0.0.1:8000";
   constructor(private httpClient: HttpClient) { }
 
   public getModels(modelName: string) {
