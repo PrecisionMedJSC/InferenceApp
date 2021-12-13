@@ -67,12 +67,24 @@
 
             <h2>Generated form</h2>
             <div *ngFor="let field of fieldsName; let i = index"
-                style="display: flex; flex-direction: row; text-align: left;width: 100%;">
-                <mat-form-field style="flex: 3;">
-                    <input matInput style="text-align: left;" placeholder="{{field}}" [(ngModel)]="fieldValues[i]">
-                </mat-form-field>
+                style="display: flex; flex-direction: column; text-align: left; width: 100%;">
+                <div style="display: flex; align-items: center;">
+                    <mat-form-field style="flex: 3;">
+                        <input matInput style="text-align: left;" placeholder="{{field}}" [(ngModel)]="fieldValues[i]">
+                    </mat-form-field>
 
-                <span style="flex:1; text-align: left;">{{unitsName[i]}}</span>
+                    <span style="flex:1; text-align: left;">{{unitsName[i]}}</span>
+                </div>
+                <div style="display: flex">
+                    <span>{{thresholds[i][0]}}</span>
+                    <mat-progress-bar mode="determinate"
+                        [color]="thresholdColor(fieldValues[i], thresholds[i][0], thresholds[i][1])"
+                        value="{{percentageProgess(fieldValues[i], thresholds[i])}}">
+
+                    </mat-progress-bar>
+                    <p>{{thresholds[i][1]}}</p>
+                </div>
+
             </div>
         </mat-card-content>
     </div>

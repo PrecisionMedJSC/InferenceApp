@@ -17,3 +17,6 @@
 mat-form-field {
   padding-left: 8px;
 }
+::ng-deep .mat-progress-bar {
+  border-radius: 10px;
+}

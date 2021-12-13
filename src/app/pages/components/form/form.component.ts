@@ -36,6 +36,7 @@ export class FormComponent implements OnInit {
   unitsName: Array<string> = [];
   fieldValues: Array<string> = [];
   specs: Array<any> = [];
+  thresholds: Array<any> = [];
   isNormed: boolean = true;
   get f() { return this.dynamicForm.controls; }
   get t() { return this.f.fields as FormArray; }
@@ -77,7 +78,7 @@ export class FormComponent implements OnInit {
 
   async onSubmit() {
     this.submitted = true;
-   
+
     let result: Array<any> = [];
     console.log(this.algosSelected);
     this.algosSelected.map(async (value: any, index: number) => {
@@ -103,7 +104,7 @@ export class FormComponent implements OnInit {
   onClear() {
     this.submitted = false;
     this.t.reset();
-    for(let i = 0; i < this.fieldValues.length; i++) {
+    for (let i = 0; i < this.fieldValues.length; i++) {
       this.fieldValues[i] = '';
     }
   }
@@ -114,7 +115,9 @@ export class FormComponent implements OnInit {
   async onChangeModel(e: string) {
     let temp = (await this.mlService.getModels(e) as any);
     let algoName = temp['models'];
-    this.specs = temp['spec']['features']
+    this.specs = temp['spec']['features'];
+    console.log(this.specs);
+    // console.log(temp['spec']['features'][0]['describes'].thresholds);
     while (this.algos.length > 0) {
       this.algos.pop();
     }
@@ -125,19 +128,22 @@ export class FormComponent implements OnInit {
       }
     });
 
-    while(this.fieldValues.length > 0) {
+    while (this.fieldValues.length > 0) {
       this.fieldValues.pop();
       this.fieldsName.pop();
       this.unitsName.pop();
+      this.thresholds.pop();
     }
 
-    this.specs.forEach((element: any) => {
+    this.specs.forEach((element: any, i: number) => {
       this.fieldsName?.push(element['name']);
       this.unitsName?.push(element['unit']);
       this.fieldValues.push('');
+      this.thresholds.push(element['describes']['thresholds']);
     });
     // console.log(this.algos);
     // console.log(this.specs);
+    // console.log(this.thresholds);
   }
   filterExtensionFile(fileName: string) {
     const regex = RegExp(/^.*\.(pkl|h5)$/g);
@@ -152,6 +158,24 @@ export class FormComponent implements OnInit {
     result = result.substring(0, result.length - 1);
     // console.log(result);
     return result;
+  }
+  thresholdColor(value: any, min: number, max: number) {
+    // console.log(typeof (Number(value)));
+    // console.log(value);
+    // return 'success';
+    if (Number(value) <= min) {
+      return 'primary';
+    } else if (Number(value) >= max) {
+      return 'warn';
+    } else {
+      return 'accent';
+    }
+  }
+  percentageProgess(value: any, thresholds: Array<number>) {
+    value = Number(value);
+    let percentage = ((value - thresholds[0]) / (thresholds[1] - thresholds[0])) * 100;
+    // console.log(percentage);
+    return percentage;
   }
 }
 
