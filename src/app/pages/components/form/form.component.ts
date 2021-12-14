@@ -143,7 +143,7 @@ export class FormComponent implements OnInit {
     });
     // console.log(this.algos);
     // console.log(this.specs);
-    // console.log(this.thresholds);
+    console.log(this.thresholds);
   }
   filterExtensionFile(fileName: string) {
     const regex = RegExp(/^.*\.(pkl|h5)$/g);
@@ -159,13 +159,13 @@ export class FormComponent implements OnInit {
     // console.log(result);
     return result;
   }
-  thresholdColor(value: any, min: number, max: number) {
+  thresholdColor(value: any, min: number, threshold: number) {
     // console.log(typeof (Number(value)));
     // console.log(value);
     // return 'success';
     if (Number(value) <= min) {
       return 'primary';
-    } else if (Number(value) >= max) {
+    } else if (Number(value) >= threshold) {
       return 'warn';
     } else {
       return 'accent';
@@ -173,7 +173,7 @@ export class FormComponent implements OnInit {
   }
   percentageProgess(value: any, thresholds: Array<number>) {
     value = Number(value);
-    let percentage = ((value - thresholds[0]) / (thresholds[1] - thresholds[0])) * 100;
+    let percentage = ((value - thresholds[0]) / (thresholds[2] - thresholds[0])) * 100;
     // console.log(percentage);
     return percentage;
   }

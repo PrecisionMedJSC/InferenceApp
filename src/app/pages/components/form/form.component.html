@@ -74,16 +74,20 @@
                     </mat-form-field>
 
                     <span style="flex:1; text-align: left;">{{unitsName[i]}}</span>
-                </div>
+                </div><span>
+                    <strong>Threshold: {{thresholds[i][1]}}</strong>
+                </span>
                 <div style="display: flex">
                     <span>{{thresholds[i][0]}}</span>
-                    <mat-progress-bar mode="determinate"
+                    <mat-progress-bar mode="buffer"
                         [color]="thresholdColor(fieldValues[i], thresholds[i][0], thresholds[i][1])"
-                        value="{{percentageProgess(fieldValues[i], thresholds[i])}}">
+                        value="{{percentageProgess(fieldValues[i], thresholds[i])}}"
+                        [bufferValue]="percentageProgess(thresholds[i][1],thresholds[i])">
 
                     </mat-progress-bar>
-                    <p>{{thresholds[i][1]}}</p>
+                    <p>{{thresholds[i][2]}}</p>
                 </div>
+
 
             </div>
         </mat-card-content>

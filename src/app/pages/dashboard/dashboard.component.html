@@ -13,8 +13,8 @@
         <app-form></app-form>
     </mat-drawer>
     <mat-drawer-content *ngIf="value"
-        style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); text-align: center;">
-        <mat-card *ngFor="let i of value" style="margin: 20px; " class="mat-elevation-z6">
+        style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); text-align: center; gap: 2%;">
+        <mat-card *ngFor="let i of value" style="margin: 20px; height: 250px; " class="mat-elevation-z6">
             <mat-card-header>
                 <mat-card-title style="text-align: center;">
                     <span style="text-align: center;">{{i['algorithm']}}</span>
