@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,7 @@ import { Injectable } from '@angular/core';
 export class MlService {
 
   // env = 'https://ep.diabetes.precisionmed.dev';
-  env = "http://127.0.0.1:8000";
+  env = environment.endpoint;
   constructor(private httpClient: HttpClient) { }
 
   public getModels(modelName: string) {
