@@ -6,12 +6,14 @@ import { DashboardComponent } from './dashboard.component';
 import { SharedModule } from 'src/app/sharedModule.module';
 import { FormComponent } from '../components/form/form.component';
 import { ChartComponent } from '../components/chart/chart.component';
+import { AnalyzeAlgoComponent } from '../components/analyze-algo/analyze-algo.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     FormComponent,
-    ChartComponent
+    ChartComponent,
+    AnalyzeAlgoComponent
   ],
   imports: [
     CommonModule,

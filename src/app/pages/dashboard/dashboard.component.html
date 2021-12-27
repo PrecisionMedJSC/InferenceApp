@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row style="z-index: 2;" class="mat-elevation-z8">
-        <button mat-icon-button (click)="sidenav.toggle()">
+        <button mat-icon-button (click)="onToggleSidenavL(sidenavL)">
             <mat-icon>menu</mat-icon>
         </button>
         <span>Inference App</span>
@@ -8,9 +8,15 @@
     </mat-toolbar-row>
 </mat-toolbar>
 
-<mat-drawer-container class="w-full" style="height: 100%;">
-    <mat-drawer #sidenav mode="side" [(opened)]="opened">
+<mat-drawer-container class="w-full" style="height: 100%;" hasBackdrop="{{hasBackdrop}}">
+    <mat-drawer #sidenavL mode="side" position='start' [(opened)]="openedL">
         <app-form></app-form>
+    </mat-drawer>
+    <mat-drawer #sidenavR mode="over" position="end" [(opened)]="openedR">
+        <div style="width: 50vw;">
+            <app-analyze-algo [algoList]="choosedAlgoAnalyze"></app-analyze-algo>
+        </div>
+
     </mat-drawer>
     <mat-drawer-content *ngIf="value"
         style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); text-align: center; gap: 10px 10px;">
@@ -23,10 +29,9 @@
             <mat-card-content>
                 <app-chart [gaugeValue]="round(i['result'][0][0]*100)">
                 </app-chart>
+                <button mat-raised-button color="primary"
+                    (click)="onToggleSidenavR(sidenavR, $event, i)">Analyze</button>
             </mat-card-content>
         </mat-card>
-
-
     </mat-drawer-content>
-
 </mat-drawer-container>

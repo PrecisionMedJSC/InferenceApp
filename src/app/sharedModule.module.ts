@@ -23,6 +23,7 @@ import * as Charts from 'fusioncharts/fusioncharts.charts';
 import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme)
 import { NgxGaugeModule } from 'ngx-gauge';
+import { NgApexchartsModule } from "ng-apexcharts";
 
 @NgModule({
     imports: [
@@ -69,7 +70,8 @@ import { NgxGaugeModule } from 'ngx-gauge';
         ReactiveFormsModule,
         HttpClientModule,
         FusionChartsModule,
-        NgxGaugeModule
+        NgxGaugeModule,
+        NgApexchartsModule
     ],
     providers: [
         { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }

@@ -89,8 +89,9 @@ export class FormComponent implements OnInit {
         this.isNormed));
     })
     this.chartService.setChartData(result);
+
     // console.log(this.dynamicForm?.value);
-    console.log(result);
+    // console.log(result);
   }
   upperNameOfFields(name: string) {
     return name.toUpperCase();
@@ -116,7 +117,7 @@ export class FormComponent implements OnInit {
     let temp = (await this.mlService.getModels(e) as any);
     let algoName = temp['models'];
     this.specs = temp['spec']['features'];
-    console.log(this.specs);
+    // console.log(this.specs);
     // console.log(temp['spec']['features'][0]['describes'].thresholds);
     while (this.algos.length > 0) {
       this.algos.pop();
@@ -143,7 +144,7 @@ export class FormComponent implements OnInit {
     });
     // console.log(this.algos);
     // console.log(this.specs);
-    console.log(this.thresholds);
+    // console.log(this.thresholds);
   }
   filterExtensionFile(fileName: string) {
     const regex = RegExp(/^.*\.(pkl|h5)$/g);

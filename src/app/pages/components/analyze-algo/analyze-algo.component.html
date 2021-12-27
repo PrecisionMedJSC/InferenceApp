@@ -1,0 +1,34 @@
+<div *ngIf="algoList!=null">
+    <p>{{algoList['algorithm']}}</p>
+    <p>{{algoList['result']*100}}</p>
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Selected Features</mat-label>
+        <input matInput [(ngModel)]="selectedFeatures">
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Delta</mat-label>
+        <input matInput [(ngModel)]="delta">
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Learning rate</mat-label>
+        <input matInput [(ngModel)]="learningRate">
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Step</mat-label>
+        <input matInput [(ngModel)]="step">
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Expected Risk Factor</mat-label>
+        <input matInput [(ngModel)]='expectedRiskFactor'>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="calculate()">Calculate</button>
+</div>
+<div *ngFor="let i of chartConfigs" style="margin-top: 20px;">
+    <div id="chart" *ngIf="i?.series && i?.chart &&i?.dataLabels">
+        <apx-chart [series]="i.series" [chart]="i.chart" [dataLabels]="i.dataLabels" [plotOptions]="i.plotOptions"
+            [xaxis]="i.xaxis" [title]="i.title"></apx-chart>
+    </div>
+</div>
+<p *ngIf="noResult">
+    No result
+</p>
